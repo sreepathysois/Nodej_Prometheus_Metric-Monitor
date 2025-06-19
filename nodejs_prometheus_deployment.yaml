@@ -11,10 +11,13 @@ spec:
     metadata:
       labels:
         app: cafe-nodejs-app
+      annotations:
+        co.elastic.logs/enabled: "true"
+        co.elastic.logs/module: "nodejs"
     spec:
       containers:
         - name: cafe-nodejs-app
-          image: sreedocker123/nodejs_prometheus_mtrics:latest
+          image: sreedocker123/nodejs_prometheus_mtrics:v4
           ports:
             - containerPort: 3000
 

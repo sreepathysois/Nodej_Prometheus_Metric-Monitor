@@ -2,13 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cafe-nodejs-service
+  labels:                  # ✅ Add this!
+    app: cafe-nodejs-app   # ✅ Must match ServiceMonitor selector
 spec:
-  type: NodePort          # <-- change to NodePort
+  type: NodePort
   selector:
     app: cafe-nodejs-app
   ports:
     - name: http
       port: 80
       targetPort: 3000
-      nodePort: 30080    # <-- optional: choose a port in 30000–32767, or let Kubernetes assign one
+      nodePort: 30080
 

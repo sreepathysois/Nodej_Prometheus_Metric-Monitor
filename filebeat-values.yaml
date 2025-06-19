@@ -1,0 +1,31 @@
+filebeatConfig:
+  filebeat.yml: |
+    filebeat.autodiscover:
+      providers:
+        - type: kubernetes
+          hints.enabled: true
+          hints.default_config:
+            type: container
+            paths:
+              - /var/log/containers/*${data.kubernetes.container.id}.log
+
+    processors:
+      - add_cloud_metadata: ~
+
+    output.elasticsearch:
+      hosts: ['https://elasticsearch-master:9200']
+      username: "elastic"
+      password: "wEZx2L840cERTiC3"
+      ssl.verification_mode: none  # Use 'full' in production
+      # If you want to use full verification, mount your CA:
+      # ssl.certificate_authorities: ["/usr/share/filebeat/certs/ca.crt"]
+
+rbac:
+  create: true
+
+daemonset:
+  enabled: true
+
+deployment:
+  enabled: false
+
